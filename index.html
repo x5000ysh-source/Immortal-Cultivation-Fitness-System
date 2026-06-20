@@ -207,89 +207,189 @@
         .demon-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(192, 57, 43, 0.1) 0%, transparent 70%); animation: demonPulse 4s ease-in-out infinite; }
         @keyframes demonPulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 0.8; } }
 
-        /* ==================== 手機版響應式設計 (RWD) ==================== */
+        /* ==================== 手機版響應式設計 (RWD) 優化版 ==================== */
         @media (max-width: 768px) {
-            /* 隱藏導航列的Logo文字，節省空間 */
-            .nav-brand-text { display: none; }
-            
-            /* 導航列改為橫向滑動 */
+            /* --- 基礎排版優化 --- */
+            body {
+                font-size: 14px;
+            }
+            .page-container { 
+                padding: 12px !important; 
+            }
+            .title-decoration {
+                margin-bottom: 16px;
+            }
+            .title-decoration::before, .title-decoration::after {
+                width: 30px; /* 縮短手機端的裝飾線，防止文字折行 */
+            }
+
+            /* --- 導航列改進（Nav） --- */
+            .nav-brand-text { 
+                display: none; /* 隱藏 Logo 文字，留出頂部空間 */
+            }
             #mainPage nav > div {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 8px;
+                flex-direction: column; /* 讓頂部欄與導航按鈕區上下分開 */
+                gap: 10px !important;
+                padding: 4px 0;
             }
             .nav-scroll-container {
-                width: 100%;
+                width: 100vw;
+                margin-left: -12px; /* 破開側邊距限制，實現全螢幕橫向滑動 */
+                margin-right: -12px;
                 display: flex;
                 overflow-x: auto;
+                white-space: nowrap;
                 justify-content: flex-start;
-                padding-bottom: 8px;
+                padding: 4px 12px 10px 12px;
+                scrollbar-width: none; /* 隱藏 Firefox 的捲軸 */
                 -webkit-overflow-scrolling: touch;
             }
-            .nav-btn { padding: 8px 12px; font-size: 0.9rem; flex-shrink: 0; }
+            .nav-scroll-container::-webkit-scrollbar {
+                display: none; /* 隱藏 Chrome/Safari 的捲軸 */
+            }
+            .nav-btn { 
+                padding: 6px 14px; 
+                font-size: 0.9rem; 
+                flex-shrink: 0; 
+                border-radius: 20px;
+                background: rgba(255, 255, 255, 0.05); /* 手機端加上微背景更像 App 頁籤 */
+            }
+            .nav-btn.active {
+                border-bottom: none;
+                background: rgba(212, 168, 67, 0.2);
+                box-shadow: inset 0 0 8px rgba(212, 168, 67, 0.3);
+            }
 
-            /* 修為面板上下排列 */
+            /* --- 創建角色 / 登入頁 --- */
+            #loginPage > div {
+                padding: 12px !important;
+            }
+            #loginPage h1 {
+                font-size: 2rem !important;
+            }
+            #loginPage .spirit-root-btn {
+                padding: 12px 8px !important;
+            }
+            #loginPage .spirit-root-btn img {
+                width: 36px !important;
+                height: 36px !important;
+            }
+
+            /* --- 修為面板（Dashboard） --- */
             .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start !important;
-                gap: 12px !important;
+                flex-direction: column !important;
+                align-items: center !important; /* 手機上居中更美觀 */
+                text-align: center;
+                gap: 16px !important;
             }
             .dashboard-header > div:last-child {
-                text-align: left;
+                text-align: center !important;
                 width: 100%;
+                border-top: 1px solid rgba(212, 168, 67, 0.1);
+                padding-top: 12px;
             }
-
-            /* 四屬性卡片改為 2x2 */
             .stat-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
+                grid-template-columns: repeat(2, 1fr) !important; /* 4格改為 2x2 排版 */
+                gap: 10px !important;
+            }
+            .stat-card {
+                padding: 12px !important;
             }
 
-            /* 系統網格改為單列 */
+            /* --- 修煉功能（Exercise）與通用響應式網格 --- */
             .responsive-grid {
-                grid-template-columns: 1fr !important;
+                grid-template-columns: 1fr !important; /* 所有卡片改為單列垂直堆疊 */
+                gap: 14px !important;
             }
-
-            /* 運動按鈕內部改為垂直排列 */
             .exercise-btn {
-                flex-direction: column;
-                text-align: center;
+                flex-direction: column !important;
+                text-align: center !important;
                 min-height: auto !important;
-                padding: 20px;
+                padding: 16px !important;
             }
             .exercise-btn > div {
                 flex-direction: column !important;
-                gap: 16px !important;
+                gap: 12px !important;
+                width: 100%;
             }
             .exercise-img-wrapper {
-                width: 120px !important;
-                height: 120px !important;
+                width: 90px !important; /* 縮小運動圖示，避免佔用過多垂直空間 */
+                height: 90px !important;
                 margin: 0 auto;
             }
             .exercise-btn > div > div:last-child {
-                padding: 0;
-                text-align: center;
+                padding: 0 !important;
+                text-align: center !important;
             }
             .exercise-btn > div > div:last-child > div:last-child {
-                justify-content: center;
+                justify-content: center !important; /* 讓手機端的數值顯示居中 */
             }
 
-            /* 心魔挑戰區域垂直排列 */
+            /* --- 道侶與靈寵頁面 --- */
+            .companion-card, .pet-card {
+                padding: 14px !important;
+            }
+            .companion-img, .pet-img {
+                width: 90px !important;
+                height: 90px !important;
+            }
+            .interaction-grid {
+                grid-template-columns: repeat(2, 1fr) !important; /* 保持 2x2 按鈕 */
+                gap: 6px !important;
+            }
+
+            /* --- CG 畫廊（縮圖） --- */
+            .cg-gallery {
+                grid-template-columns: repeat(2, 1fr) !important; /* 手機端 3行改為 2行 顯示更清晰 */
+                gap: 8px !important;
+            }
+
+            /* --- 天榜（排行榜） --- */
+            .rank-item {
+                gap: 10px !important;
+                padding: 8px 12px !important;
+            }
+            .rank-number {
+                width: 28px !important;
+                height: 28px !important;
+                font-size: 0.85rem !important;
+            }
+
+            /* --- 心魔挑戰區域 --- */
             .demon-stats {
-                flex-direction: column;
+                flex-direction: column !important;
                 gap: 12px !important;
             }
 
-            /* CG 查看器與彈窗適配 */
-            .cg-viewer-img { max-width: 95%; }
-            .cg-viewer-close { top: 10px; right: 15px; font-size: 2rem; }
-            .modal-content { padding: 24px; width: 95%; }
-
-            /* 頁面邊距縮小 */
-            .page-container { padding: 16px !important; }
-
-            /* 排行榜字體縮小 */
-            .rank-item { gap: 8px; padding: 10px; }
-            .rank-number { width: 30px; height: 30px; font-size: 0.9rem; }
+            /* --- 全局彈窗與提示（Modal & Notification） --- */
+            .modal-content {
+                padding: 20px !important;
+                width: 92% !important;
+                border-radius: 16px !important;
+            }
+            .modal-content h2 {
+                font-size: 1.6rem !important;
+            }
+            .cg-viewer-img {
+                max-width: 96% !important;
+                max-height: 75vh !important;
+            }
+            .cg-viewer-close {
+                top: 15px !important;
+                right: 20px !important;
+                font-size: 2.2rem !important;
+            }
+            .notification {
+                top: auto;
+                bottom: 20px; /* 手機上彈出通知改在底部，更符合大螢幕手機的操作習慣 */
+                left: 10px;
+                right: 10px;
+                max-width: calc(100% - 20px);
+                transform: translateY(200px);
+            }
+            .notification.show {
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
