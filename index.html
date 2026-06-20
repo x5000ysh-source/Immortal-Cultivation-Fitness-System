@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>仙道減重 - 修仙運動升級系統</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
@@ -124,7 +124,7 @@
         .cg-viewer-close:hover { transform: rotate(90deg); color: #fff; }
         .cg-viewer-title { color: var(--primary-gold); font-size: 1.5rem; margin-top: 20px; font-weight: 700; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
 
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: var(--primary-gold); border-radius: 4px; }
 
@@ -149,7 +149,7 @@
 
         .rank-item { display: flex; align-items: center; gap: 16px; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border-radius: 12px; margin-bottom: 8px; border: 1px solid rgba(212, 168, 67, 0.1); transition: all 0.3s ease; }
         .rank-item:hover { border-color: rgba(212, 168, 67, 0.3); transform: translateX(5px); }
-        .rank-number { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; }
+        .rank-number { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; flex-shrink: 0; }
         .rank-1 { background: linear-gradient(135deg, #ffd700, #ffed4a); color: #0f172a; }
         .rank-2 { background: linear-gradient(135deg, #c0c0c0, #e8e8e8); color: #0f172a; }
         .rank-3 { background: linear-gradient(135deg, #cd7f32, #daa520); color: #0f172a; }
@@ -206,6 +206,91 @@
         .demon-card { background: linear-gradient(135deg, rgba(192, 57, 43, 0.2), rgba(142, 68, 173, 0.2)); border: 2px solid rgba(192, 57, 43, 0.5); border-radius: 16px; padding: 24px; text-align: center; position: relative; overflow: hidden; }
         .demon-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(192, 57, 43, 0.1) 0%, transparent 70%); animation: demonPulse 4s ease-in-out infinite; }
         @keyframes demonPulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 0.8; } }
+
+        /* ==================== 手機版響應式設計 (RWD) ==================== */
+        @media (max-width: 768px) {
+            /* 隱藏導航列的Logo文字，節省空間 */
+            .nav-brand-text { display: none; }
+            
+            /* 導航列改為橫向滑動 */
+            #mainPage nav > div {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+            .nav-scroll-container {
+                width: 100%;
+                display: flex;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 8px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-btn { padding: 8px 12px; font-size: 0.9rem; flex-shrink: 0; }
+
+            /* 修為面板上下排列 */
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 12px !important;
+            }
+            .dashboard-header > div:last-child {
+                text-align: left;
+                width: 100%;
+            }
+
+            /* 四屬性卡片改為 2x2 */
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            /* 系統網格改為單列 */
+            .responsive-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* 運動按鈕內部改為垂直排列 */
+            .exercise-btn {
+                flex-direction: column;
+                text-align: center;
+                min-height: auto !important;
+                padding: 20px;
+            }
+            .exercise-btn > div {
+                flex-direction: column !important;
+                gap: 16px !important;
+            }
+            .exercise-img-wrapper {
+                width: 120px !important;
+                height: 120px !important;
+                margin: 0 auto;
+            }
+            .exercise-btn > div > div:last-child {
+                padding: 0;
+                text-align: center;
+            }
+            .exercise-btn > div > div:last-child > div:last-child {
+                justify-content: center;
+            }
+
+            /* 心魔挑戰區域垂直排列 */
+            .demon-stats {
+                flex-direction: column;
+                gap: 12px !important;
+            }
+
+            /* CG 查看器與彈窗適配 */
+            .cg-viewer-img { max-width: 95%; }
+            .cg-viewer-close { top: 10px; right: 15px; font-size: 2rem; }
+            .modal-content { padding: 24px; width: 95%; }
+
+            /* 頁面邊距縮小 */
+            .page-container { padding: 16px !important; }
+
+            /* 排行榜字體縮小 */
+            .rank-item { gap: 8px; padding: 10px; }
+            .rank-number { width: 30px; height: 30px; font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
@@ -289,9 +374,9 @@
             <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
                 <div style="display: flex; align-items: center; gap: 12px;">
                     <span style="font-size: 1.8rem;">🧘‍♂️</span>
-                    <span style="font-size: 1.3rem; font-weight: 900; color: var(--primary-gold);">仙道減重</span>
+                    <span class="nav-brand-text" style="font-size: 1.3rem; font-weight: 900; color: var(--primary-gold);">仙道減重</span>
                 </div>
-                <div style="display: flex; gap: 8px;">
+                <div class="nav-scroll-container" style="gap: 8px;">
                     <button class="nav-btn active" data-page="dashboard" onclick="switchPage('dashboard')"><span>📊</span> 修為</button>
                     <button class="nav-btn" data-page="exercise" onclick="switchPage('exercise')"><span>⚔️</span> 修煉</button>
                     <button class="nav-btn" data-page="talent" onclick="switchPage('talent')"><span>📜</span> 功法</button>
@@ -300,15 +385,15 @@
                     <button class="nav-btn" data-page="ranking" onclick="switchPage('ranking')"><span>🏆</span> 天榜</button>
                 </div>
                 <div style="display: flex; align-items: center; gap: 12px;">
-                    <span style="color: var(--primary-gold); font-weight: 700;" id="navPlayerName"></span>
+                    <span style="color: var(--primary-gold); font-weight: 700; display: none;" id="navPlayerName"></span>
                     <button class="xian-btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;" onclick="resetData()">🔄 輪迴</button>
                 </div>
             </div>
         </nav>
 
-        <div class="page active" id="dashboardPage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
+        <div class="page active page-container" id="dashboardPage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
             <div class="gold-border" style="border-radius: 20px; padding: 24px; margin-bottom: 24px; background: var(--card-bg);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
                     <div>
                         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
                             <img src="images/avatar_player.png" alt="玩家頭像" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--primary-gold); box-shadow: 0 0 10px rgba(212, 168, 67, 0.5);" id="playerAvatar">
@@ -336,7 +421,7 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+            <div class="stat-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
                 <div class="stat-card"><div style="font-size: 2rem; margin-bottom: 8px;">💪</div><div style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 4px;">體魄</div><div style="font-size: 1.5rem; font-weight: 900; color: var(--accent-green);" id="statStrength">10</div><div style="font-size: 0.8rem; color: #64748b; margin-top: 4px;">力量訓練</div></div>
                 <div class="stat-card"><div style="font-size: 2rem; margin-bottom: 8px;">🏃</div><div style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 4px;">身法</div><div style="font-size: 1.5rem; font-weight: 900; color: var(--accent-blue);" id="statAgility">10</div><div style="font-size: 0.8rem; color: #64748b; margin-top: 4px;">有氧運動</div></div>
                 <div class="stat-card"><div style="font-size: 2rem; margin-bottom: 8px;">🧘</div><div style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 4px;">靈識</div><div style="font-size: 1.5rem; font-weight: 900; color: var(--accent-purple);" id="statSpirit">10</div><div style="font-size: 0.8rem; color: #64748b; margin-top: 4px;">冥想恢復</div></div>
@@ -366,7 +451,7 @@
             </div>
         </div>
 
-        <div class="page" id="exercisePage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
+        <div class="page page-container" id="exercisePage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
             <div class="title-decoration"><h2 style="font-size: 2rem; font-weight: 900; color: var(--primary-gold);">⚔️ 修煉功法</h2></div>
             <p style="text-align: center; color: #94a3b8; margin-bottom: 32px;">選擇功法進行修煉，獲得靈力與屬性提升</p>
 
@@ -375,41 +460,39 @@
                     <img src="images/boss_demon.png" alt="心魔" style="display: block; margin: 0 auto 16px; width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid #e74c3c; box-shadow: 0 0 30px rgba(231, 76, 60, 0.8);">
                     <h3 style="font-size: 1.8rem; color: #e74c3c; margin-bottom: 8px; font-weight: 900;">心魔試煉</h3>
                     <p style="color: #94a3b8; margin-bottom: 16px;">擊敗心魔，獲得大量靈力與稀有獎勵</p>
-                    <div style="display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                    <div class="demon-stats" style="display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap;">
                         <div style="text-align: center;"><div style="font-size: 0.9rem; color: #94a3b8;">心魔等級</div><div style="font-size: 1.5rem; font-weight: 900; color: #e74c3c;" id="demonLevel">1</div></div>
                         <div style="text-align: center;"><div style="font-size: 0.9rem; color: #94a3b8;">需要戰力</div><div style="font-size: 1.5rem; font-weight: 900; color: #e74c3c;" id="demonPower">50</div></div>
                         <button class="xian-btn" style="background: linear-gradient(135deg, #e74c3c, #c0392b);" onclick="challengeDemon()">挑戰心魔</button>
                     </div>
                 </div>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px;" id="exerciseContainer"></div>
+            <div class="responsive-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px;" id="exerciseContainer"></div>
         </div>
 
-        <!-- 修復功法天賦頁面排版與樣式 -->
-        <div class="page" id="talentPage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
+        <div class="page page-container" id="talentPage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
             <div class="title-decoration"><h2 style="font-size: 2rem; font-weight: 900; color: var(--primary-gold);">📜 功法天賦</h2></div>
             <p style="text-align: center; color: #94a3b8; margin-bottom: 32px;">消耗靈力點數學習功法，提升各項能力</p>
             <div style="text-align: center; margin-bottom: 32px;">
                 <span style="color: #94a3b8; font-size: 1.1rem;">可用靈力點數：</span>
                 <span style="font-size: 2rem; font-weight: 900; color: var(--primary-gold); text-shadow: 0 0 10px rgba(212, 168, 67, 0.5);" id="talentPoints">0</span>
             </div>
-            <!-- 修復網格排版：改為 auto-fit 以適應 4 個分類 -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;" id="talentTreeContainer"></div>
+            <div class="responsive-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;" id="talentTreeContainer"></div>
         </div>
 
-        <div class="page" id="petPage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
+        <div class="page page-container" id="petPage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
             <div class="title-decoration"><h2 style="font-size: 2rem; font-weight: 900; color: var(--primary-gold);">🐉 靈寵系統</h2></div>
             <p style="text-align: center; color: #94a3b8; margin-bottom: 32px;">培養靈寵，升級可獲得更高修煉加成</p>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;" id="petContainer"></div>
+            <div class="responsive-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;" id="petContainer"></div>
         </div>
 
-        <div class="page" id="companionPage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
+        <div class="page page-container" id="companionPage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
             <div class="title-decoration"><h2 style="font-size: 2rem; font-weight: 900; color: var(--primary-gold);">💕 道侶系統</h2></div>
             <p style="text-align: center; color: #94a3b8; margin-bottom: 32px;">透過互動提升親密度，解鎖專屬CG畫面</p>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;" id="companionContainer"></div>
+            <div class="responsive-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;" id="companionContainer"></div>
         </div>
 
-        <div class="page" id="rankingPage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
+        <div class="page page-container" id="rankingPage" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
             <div class="title-decoration"><h2 style="font-size: 2rem; font-weight: 900; color: var(--primary-gold);">🏆 天榜排行</h2></div>
             <p style="text-align: center; color: #94a3b8; margin-bottom: 32px;">修仙界強者排名</p>
             <div class="gold-border" style="border-radius: 20px; padding: 24px; background: var(--card-bg);"><div id="rankingContainer"></div></div>
@@ -542,7 +625,6 @@
                 if (!gameState.petLevels) gameState.petLevels = {};
                 if (!gameState.petInteractionCooldown) gameState.petInteractionCooldown = {};
                 if (!gameState.companionCooldown) gameState.companionCooldown = {};
-                // 修復舊存檔天賦點數遺失問題
                 if (typeof gameState.talentPoints !== 'number') gameState.talentPoints = 0;
                 if (!Array.isArray(gameState.unlockedTalents)) gameState.unlockedTalents = [];
             }
@@ -583,6 +665,7 @@
             document.getElementById('loginPage').classList.remove('active');
             document.getElementById('mainPage').classList.add('active');
             document.getElementById('navPlayerName').textContent = gameState.playerName;
+            document.getElementById('navPlayerName').style.display = 'block'; // 顯示玩家名稱
             switchBg('dashboard'); updateAllUI();
         }
 
@@ -592,6 +675,7 @@
             document.querySelectorAll('#mainPage > .page').forEach(p => p.classList.remove('active'));
             document.getElementById(page + 'Page').classList.add('active');
             switchBg(page); updateAllUI();
+            window.scrollTo(0, 0); // 切換頁面時回到頂部
         }
 
         function switchBg(page) {
@@ -640,7 +724,7 @@
                 btn.className = 'exercise-btn' + (isCooldown || !canAfford ? ' cooldown' : '');
                 btn.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 24px; width: 100%;">
-                        <div style="width: 180px; height: 180px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2); border-radius: 12px; overflow: hidden;">
+                        <div class="exercise-img-wrapper" style="width: 180px; height: 180px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2); border-radius: 12px; overflow: hidden;">
                             <img src="images/${exercise.id}.png" alt="${exercise.name}" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 10px rgba(212, 168, 67, 0.5));">
                         </div>
                         <div style="flex: 1; padding: 10px 0;">
@@ -695,10 +779,7 @@
             if (Math.random() < winChance) {
                 let expGain = gameState.demonsLevel * 200;
                 gameState.demonsDefeated++; gameState.demonsLevel++;
-                
-                // 額外獲得天賦點數
                 gameState.talentPoints += 2; 
-                
                 showNotification('勝利', `擊敗心魔！獲得 ${expGain} 靈力與 2 點天賦點數`);
                 showFloatText(window.innerWidth / 2, window.innerHeight / 2, `+${expGain} 靈力`, '#e74c3c');
                 if (gameState.ownedCompanions.length > 0) expGain += Math.floor(expGain * gameState.ownedCompanions.length * 0.1);
@@ -731,7 +812,7 @@
         }
         function closeModal() { document.getElementById('breakthroughModal').classList.remove('active'); updateDashboard(); }
 
-        // ==================== 天賦系統 (修復版) ====================
+        // ==================== 天賦系統 ====================
         function renderTalents() {
             const container = document.getElementById('talentTreeContainer');
             container.innerHTML = '';
@@ -794,10 +875,7 @@
             }
             
             showNotification('學習成功', `學會了 ${talent.name}！${talent.effect}`);
-            renderTalents(); 
-            updateDashboard(); 
-            checkAchievements(); 
-            saveGame();
+            renderTalents(); updateDashboard(); checkAchievements(); saveGame();
         }
 
         // ==================== 靈寵系統 ====================
@@ -1023,7 +1101,6 @@
             gameState.maxStreak = Math.max(gameState.maxStreak, gameState.checkInStreak); gameState.lastCheckIn = today;
             let reward = 100 * gameState.checkInStreak; if (gameState.realm >= 9) reward *= 2;
             
-            // 連續簽到滿 7 天額外獲得天賦點數
             if (gameState.checkInStreak % 7 === 0) {
                 gameState.talentPoints += 3;
                 showNotification('簽到大獎', `連續簽到滿一周！額外獲得 3 點天賦點數！`);
