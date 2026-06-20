@@ -6,6 +6,12 @@
     <title>仙道減重 - 修仙運動升級系統</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- PWA 設定 -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#d4a843">
+    <link rel="apple-touch-icon" href="images/icon-192.png">
+
     <style>
         :root {
             --primary-gold: #d4a843;
@@ -438,28 +444,28 @@
 
         const TALENTS = {
             strength: [
-                { id: 's1', name: '鐵骨', emoji: '🦴', cost: 5, effect: '體魄+2', level: 1 },
-                { id: 's2', name: '銅皮', emoji: '🛡️', cost: 10, effect: '體魄+3', level: 2, req: 's1' },
-                { id: 's3', name: '金身', emoji: '✨', cost: 15, effect: '體魄+5', level: 3, req: 's2' },
-                { id: 's4', name: '不滅', emoji: '🔥', cost: 20, effect: '體魄+10', level: 4, req: 's3' }
+                { id: 's1', name: '鐵骨', emoji: '🦴', cost: 100, effect: '體魄+2', level: 1 },
+                { id: 's2', name: '銅皮', emoji: '🛡️', cost: 200, effect: '體魄+3', level: 2, req: 's1' },
+                { id: 's3', name: '金身', emoji: '✨', cost: 500, effect: '體魄+5', level: 3, req: 's2' },
+                { id: 's4', name: '不滅', emoji: '🔥', cost: 1000, effect: '體魄+10', level: 4, req: 's3' }
             ],
             agility: [
-                { id: 'a1', name: '輕身', emoji: '🍃', cost: 5, effect: '身法+2', level: 1 },
-                { id: 'a2', name: '踏風', emoji: '💨', cost: 10, effect: '身法+3', level: 2, req: 'a1' },
-                { id: 'a3', name: '瞬影', emoji: '⚡', cost: 15, effect: '身法+5', level: 3, req: 'a2' },
-                { id: 'a4', name: '無蹤', emoji: '👻', cost: 20, effect: '身法+10', level: 4, req: 'a3' }
+                { id: 'a1', name: '輕身', emoji: '🍃', cost: 100, effect: '身法+2', level: 1 },
+                { id: 'a2', name: '踏風', emoji: '💨', cost: 200, effect: '身法+3', level: 2, req: 'a1' },
+                { id: 'a3', name: '瞬影', emoji: '⚡', cost: 500, effect: '身法+5', level: 3, req: 'a2' },
+                { id: 'a4', name: '無蹤', emoji: '👻', cost: 1000, effect: '身法+10', level: 4, req: 'a3' }
             ],
             spirit: [
-                { id: 'p1', name: '凝神', emoji: '👁️', cost: 5, effect: '靈識+2', level: 1 },
-                { id: 'p2', name: '通靈', emoji: '🔮', cost: 10, effect: '靈識+3', level: 2, req: 'p1' },
-                { id: 'p3', name: '神識', emoji: '🌟', cost: 15, effect: '靈識+5', level: 3, req: 'p2' },
-                { id: 'p4', name: '天道', emoji: '☯️', cost: 20, effect: '靈識+10', level: 4, req: 'p3' }
+                { id: 'p1', name: '凝神', emoji: '👁️', cost: 100, effect: '靈識+2', level: 1 },
+                { id: 'p2', name: '通靈', emoji: '🔮', cost: 200, effect: '靈識+3', level: 2, req: 'p1' },
+                { id: 'p3', name: '神識', emoji: '🌟', cost: 500, effect: '靈識+5', level: 3, req: 'p2' },
+                { id: 'p4', name: '天道', emoji: '☯️', cost: 1000, effect: '靈識+10', level: 4, req: 'p3' }
             ],
             stamina: [
-                { id: 'e1', name: '吐納', emoji: '🌬️', cost: 5, effect: '耐力+2', level: 1 },
-                { id: 'e2', name: '歸元', emoji: '♻️', cost: 10, effect: '耐力+3', level: 2, req: 'e1' },
-                { id: 'e3', name: '生生不息', emoji: '🌱', cost: 15, effect: '耐力+5', level: 3, req: 'e2' },
-                { id: 'e4', name: '無盡', emoji: '∞', cost: 20, effect: '耐力+10', level: 4, req: 'e3' }
+                { id: 'e1', name: '吐納', emoji: '🌬️', cost: 100, effect: '耐力+2', level: 1 },
+                { id: 'e2', name: '歸元', emoji: '♻️', cost: 200, effect: '耐力+3', level: 2, req: 'e1' },
+                { id: 'e3', name: '生生不息', emoji: '🌱', cost: 500, effect: '耐力+5', level: 3, req: 'e2' },
+                { id: 'e4', name: '無盡', emoji: '∞', cost: 1000, effect: '耐力+10', level: 4, req: 'e3' }
             ]
         };
 
@@ -689,8 +695,11 @@
             if (Math.random() < winChance) {
                 let expGain = gameState.demonsLevel * 200;
                 gameState.demonsDefeated++; gameState.demonsLevel++;
-				gameState.talentPoints += 2;
-                showNotification('勝利', `擊敗心魔！獲得 ${expGain} 靈力`);
+                
+                // 額外獲得天賦點數
+                gameState.talentPoints += 2; 
+                
+                showNotification('勝利', `擊敗心魔！獲得 ${expGain} 靈力與 2 點天賦點數`);
                 showFloatText(window.innerWidth / 2, window.innerHeight / 2, `+${expGain} 靈力`, '#e74c3c');
                 if (gameState.ownedCompanions.length > 0) expGain += Math.floor(expGain * gameState.ownedCompanions.length * 0.1);
                 gameState.exp += expGain; gameState.totalExp += expGain;
@@ -705,7 +714,7 @@
             if (!nextRealm) return;
             let hasBroken = false;
             while (nextRealm && gameState.exp >= nextRealm.expRequired) {
-                gameState.exp -= nextRealm.expRequired; gameState.realm++; gameState.talentPoints += 50; hasBroken = true;
+                gameState.exp -= nextRealm.expRequired; gameState.realm++; gameState.talentPoints += 5; hasBroken = true;
                 if (gameState.realm === 4) { gameState.strength += 5; gameState.agility += 5; gameState.spirit += 5; gameState.stamina += 5; }
                 if (gameState.realm === 8) { gameState.strength += 20; gameState.agility += 20; gameState.spirit += 20; gameState.stamina += 20; }
                 if (gameState.realm >= 10) { gameState.endingsUnlocked = Math.max(gameState.endingsUnlocked, gameState.realm - 9); updateEndingHint(); }
@@ -737,13 +746,11 @@
                 const catDiv = document.createElement('div');
                 catDiv.style.cssText = 'background: var(--card-bg); border: 1px solid rgba(212, 168, 67, 0.2); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;';
                 
-                // 標題區域
                 let html = `<div style="text-align: center; margin-bottom: 12px; border-bottom: 1px solid rgba(212, 168, 67, 0.2); padding-bottom: 12px;">
                     <div style="font-size: 2.5rem; margin-bottom: 8px;">${cat.icon}</div>
                     <div style="font-size: 1.4rem; font-weight: 900; color: ${cat.color}; text-shadow: 0 0 10px ${cat.color}50;">${cat.name}天賦</div>
                 </div>`;
 
-                // 天賦節點
                 TALENTS[cat.key].forEach((talent, index) => {
                     const isUnlocked = gameState.unlockedTalents.includes(talent.id);
                     const canUnlock = !isUnlocked && gameState.talentPoints >= talent.cost && (!talent.req || gameState.unlockedTalents.includes(talent.req));
@@ -1015,6 +1022,13 @@
             if (gameState.lastCheckIn === yesterday.toDateString()) gameState.checkInStreak++; else gameState.checkInStreak = 1;
             gameState.maxStreak = Math.max(gameState.maxStreak, gameState.checkInStreak); gameState.lastCheckIn = today;
             let reward = 100 * gameState.checkInStreak; if (gameState.realm >= 9) reward *= 2;
+            
+            // 連續簽到滿 7 天額外獲得天賦點數
+            if (gameState.checkInStreak % 7 === 0) {
+                gameState.talentPoints += 3;
+                showNotification('簽到大獎', `連續簽到滿一周！額外獲得 3 點天賦點數！`);
+            }
+
             gameState.exp += reward; gameState.totalExp += reward;
             showNotification('簽到成功', `連續 ${gameState.checkInStreak} 天，獲得 ${reward} 靈力！`);
             renderCheckIn(); checkBreakthrough(); checkAchievements(); updateDashboard(); saveGame();
@@ -1103,8 +1117,20 @@
             }, 1000);
         }
 
-        // ==================== 啟動 ====================
+        // ==================== 啟動與 PWA 註冊 ====================
         window.onload = init;
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
     </script>
 </body>
 </html>
